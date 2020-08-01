@@ -51,24 +51,27 @@ public class JumbledLetters {
                                           final char[] strShuffledTwo, int iStrTwoLength) {
         int iCount = 0;
         boolean bResult = true;
-        for (int iIndexArray = 1; iIndexArray < iStrOneLength - 1;) {
-
-            if ((strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 1]
-                && strShuffledOne[iIndexArray + 1] == strShuffledTwo[iIndexArray])
-                || strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]) {
+        for (int iIndexArray = 1; iIndexArray < iStrOneLength - 2;) {
+            if ((strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]
+                    || strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 1]
+                    || strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 2])) {
                 iCount = 0;
                 if (strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]) {
                     iIndexArray++;
                     continue;
                 }
-                iIndexArray += 2;
-                if (strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]) {
-                    iIndexArray++;
+                if (strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 1]
+                    && strShuffledOne[iIndexArray + 1] == strShuffledTwo[iIndexArray]){
+                    iIndexArray += 2;
                     continue;
                 }
-            } else {
-                iCount++;
+                if (strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 2]
+                    && strShuffledOne[iIndexArray + 2] == strShuffledTwo[iIndexArray]) {
+                    iIndexArray += 3;
+                    continue;
+                }
             }
+            iCount++;
 
             if (iCount == 2){
                 bResult = false;
