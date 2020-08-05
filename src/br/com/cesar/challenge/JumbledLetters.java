@@ -29,8 +29,8 @@ public class JumbledLetters {
         }
 
         boolean bResult = false;
-        char[] szStringOne = strOne.toCharArray();
-        char[] szStringTwo = strTwo.toCharArray();
+        char[] szStringOne = strOne.toLowerCase().toCharArray();
+        char[] szStringTwo = strTwo.toLowerCase().toCharArray();
 
         // Verify when strings with 3 letters only
         if (STR_MIN_LEN == iStrOneLength
@@ -40,7 +40,8 @@ public class JumbledLetters {
         } else {
             bResult = szStringOne[0] == szStringTwo[0]
                     && szStringOne[iStrOneLength - 1] == szStringTwo[iStrTwoLength - 1]
-                    && verifyShuffledLetters(szStringOne, iStrOneLength, szStringTwo, iStrTwoLength);
+                    && verifyShuffledLetters(szStringOne, iStrOneLength, szStringTwo, iStrTwoLength)
+                    && szStringOne.length == szStringTwo.length;
 
         }
 
@@ -52,9 +53,11 @@ public class JumbledLetters {
         int iCount = 0;
         boolean bResult = true;
         for (int iIndexArray = 1; iIndexArray < iStrOneLength - 2;) {
-            if ((strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]
+            if ((strShuffledOne.length > iIndexArray
+                    && strShuffledTwo.length > iIndexArray
+                    && (strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]
                     || strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 1]
-                    || strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 2])) {
+                    || strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray + 2]))) {
                 iCount = 0;
                 if (strShuffledOne[iIndexArray] == strShuffledTwo[iIndexArray]) {
                     iIndexArray++;
@@ -71,8 +74,8 @@ public class JumbledLetters {
                     continue;
                 }
             }
+            iIndexArray++;
             iCount++;
-
             if (iCount == 2){
                 bResult = false;
                 break;
